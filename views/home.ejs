@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortner</title>
+    <style>
+        * {
+            text-decoration: none;
+            color: beige;
+            margin: 40px;
+
+        }
+
+        body {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #14242d;
+            color: beige;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .btn {
+            background-color: aqua;
+            box-shadow: 0px 0px 5px 5px rgba(0, 255, 255, 0.5);
+            color: black;
+            margin-top: 20px;
+            border-radius: 100px;
+            padding: 17px;
+            font-size: 30px;
+            height: auto;
+            width: auto;
+            outline: none;
+
+        }
+
+        .btn:hover {
+            transition: .7s;
+            box-shadow: none;
+        }
+
+        .inputName {
+            background-color: rgb(23, 33, 52);
+            padding: 5px;
+            color: beige;
+            box-shadow: 0px 0px 5px 5px rgba(0, 255, 255, 0.7);
+            margin: 50px;
+            height: 50px;
+            width: 840px;
+            font-size: 30px;
+
+        }
+
+        .howto {
+            font-size: 10px;
+        }
+
+        .table {
+            font-size: 20px;
+            border: 1px solid;
+           width: 1500px;
+        }
+
+        .thead {}
+
+        .tbody {
+            max-width: 700px;
+            overflow: auto;
+
+        }
+
+        .hh {
+            font-size: 50px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #4f4f4f;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #000000;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dadada;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="hh">Short URL Generator</h1>
+    <div>
+
+        <form method="POST" action="/url">
+            <input class="inputName" type="text" name="url" placeholder="Enter link">
+            </input>
+            <button class="btn" type="submit">Generate</button>
+        </form>
+        <div>
+
+        </div>
+        <div class="howto">
+            <h1>Just put the short id in front of<br><br> http://localhost:3001/"shortID"</h1>
+        </div>
+        <div>
+            <% if (locals.urls) { %>
+
+                <h1> Your History</h1>
+
+                <table class="table">
+                    <thead class="thead">
+                        <th>S.NO</th>
+                        <th>Short ID</th>
+                        <th>Short Link</th>
+                        <th>Redirect Link</th>
+                        <th>Total Clicks</th>
+                    </thead>
+                    <div>
+                        <tbody>
+                            <% urls.forEach((url,index)=> { %>
+
+
+                                <tr>
+                                    <td>
+                                        <%= index+1 %>
+                                    </td>
+                                    <td>
+                                        <%= url.shortId %>
+
+                                    </td>
+                                    <td><a href="http://localhost:3001/<%= url.shortId %>">
+                                            http://localhost:3001/<%= url.shortId %> </a>
+                                    </td>
+                                    <td class="tbody">
+                                        <%= url.redirectURL %>
+                                    </td>
+                                    <td>
+                                        <%= url.visitHistory.length %>
+                                    </td>
+                                </tr>
+
+                                <% }) %>
+                        </tbody>
+                    </div>
+                </table>
+                <% } else { %>
+                    <h1> No history of this service used </h1>
+                    <% } %>
+
+
+        </div>
+        <div>
+            <h1>Made by Tanush Maurya using MERN stack</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>
